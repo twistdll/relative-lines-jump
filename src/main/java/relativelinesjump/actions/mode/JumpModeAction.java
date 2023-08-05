@@ -11,7 +11,9 @@ public abstract class JumpModeAction extends JRLAction {
 
     @Override
     public final void actionPerformed(@NotNull AnActionEvent event) {
-        ApplicationManager.getApplication().getService(JumpState.class).setMode(getMode());
+        JumpState state = ApplicationManager.getApplication().getService(JumpState.class);
+        state.setLinesCount(0);
+        state.setMode(getMode());
     }
 
     protected abstract JumpMode getMode();

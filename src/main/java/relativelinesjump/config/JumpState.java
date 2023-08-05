@@ -9,15 +9,15 @@ import org.jetbrains.annotations.NotNull;
 
 @State(name = "JumpModeState", storages = {@Storage("jump_mode_state.xml")})
 public final class JumpState implements PersistentStateComponent<JumpState> {
-    private JumpMode mode = JumpMode.NONE;
-    private int linesCount = 5;
+    private JumpMode mode = JumpMode.None;
+    private int linesCount = 0;
 
     public JumpMode getMode() {
         return mode;
     }
 
     public void setMode(JumpMode mode) {
-        if(mode == null)
+        if (mode == null)
             throw new NullArgumentException("Jump mode must be not null");
 
         this.mode = mode;
@@ -28,10 +28,22 @@ public final class JumpState implements PersistentStateComponent<JumpState> {
     }
 
     public void setLinesCount(int linesCount) {
-        if(linesCount < 0)
-            throw new RuntimeException("Lines count must be positive");
+        if (linesCount < 0)
+            throw new RuntimeException("Lines count must be non negative");
 
         this.linesCount = linesCount;
+    }
+
+    public void concatToLinesCount(char character) {
+        if (!Character.isDigit(character))
+            return;
+
+        try {
+            setLinesCount(Integer.parseInt(String.valueOf(getLinesCount()) + character));
+        } catch (NumberFormatException e) {
+            // TODO: 06.08.2023 jump to last or first line
+            setLinesCount(0);
+        }
     }
 
     @Override
@@ -45,9 +57,9 @@ public final class JumpState implements PersistentStateComponent<JumpState> {
     }
 
     public static enum JumpMode {
-        NONE,
-        UP,
-        DOWN,
-        GENERIC
+        None,
+        Up,
+        Down,
+        Generic
     }
 }

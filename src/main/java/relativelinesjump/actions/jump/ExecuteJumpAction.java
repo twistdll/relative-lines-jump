@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.LogicalPosition;
 import org.jetbrains.annotations.NotNull;
 import relativelinesjump.actions.JRLAction;
 import relativelinesjump.config.JumpState;
+import relativelinesjump.utils.JumpHelper;
 
 import static relativelinesjump.config.JumpState.*;
 
@@ -18,33 +19,17 @@ public class ExecuteJumpAction extends JRLAction {
     public void actionPerformed(@NotNull AnActionEvent event) {
         JumpState jumpState = ApplicationManager.getApplication().getService(JumpState.class);
 
-        if (jumpState.getMode() == JumpMode.NONE) {
+        if (jumpState.getMode() == JumpMode.None) {
             return;
         }
 
         if (jumpState.getLinesCount() == 0) {
-            jumpState.setMode(JumpMode.NONE);
+            jumpState.setMode(JumpMode.None);
             return;
         }
 
         Editor editor = event.getRequiredData(CommonDataKeys.EDITOR);
-        Caret caret = editor.getCaretModel().getPrimaryCaret();
-        final int currentLine = editor.getDocument().getLineNumber(caret.getOffset());
-        int direction;
 
-        switch (jumpState.getMode()) {
-            case UP:
-                direction = -1;
-                break;
-            case DOWN:
-                direction = 1;
-                break;
-            default:
-                throw new RuntimeException("Unexpected jump mode");
-        }
-
-        editor.getCaretModel()
-                .getPrimaryCaret()
-                .moveToLogicalPosition(new LogicalPosition(currentLine + (direction * jumpState.getLinesCount()), 0));
+        JumpHelper.jumpToRelativeLine(editor, jumpState);
     }
 }

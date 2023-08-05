@@ -6,6 +6,6 @@ public class JumpDownModeAction extends JumpModeAction {
 
     @Override
     protected JumpMode getMode() {
-        return JumpMode.DOWN;
+        return JumpMode.Down;
     }
 }
