@@ -5,19 +5,17 @@ plugins {
 }
 
 group = "twistdll.relative-lines"
-version = "1.0"
+version = "1.1.1"
 
 repositories {
     mavenCentral()
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
     version.set("2022.2.5")
     type.set("IC") // Target IDE Platform
-
-    plugins.set(listOf(/* Plugin Dependencies */))
+    
+    plugins.set(listOf())
 }
 
 tasks {
@@ -26,8 +24,9 @@ tasks {
         sourceCompatibility = "11"
         targetCompatibility = "11"
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+
+    runIde {
+        autoReloadPlugins.set(true)
     }
 
     patchPluginXml {
