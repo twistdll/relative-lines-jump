@@ -34,7 +34,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="relativelinesjump.config.JumpState"/>
-        <editorTypedHandler  implementationClass="relativelinesjump.handlers.DigitsInputEditorHandler"/>
+        <editorTypedHandler implementationClass="relativelinesjump.handlers.DigitsInputEditorHandler"/>
         <enterHandlerDelegate implementation="relativelinesjump.handlers.EnterInJumpModeHandler" order="first"/>
     </extensions>
 </idea-plugin>

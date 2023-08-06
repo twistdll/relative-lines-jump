@@ -1,5 +1,6 @@
 package relativelinesjump.handlers;
 
+import com.intellij.codeInsight.CodeInsightSettings;
 import com.intellij.codeInsight.template.impl.editorActions.TypedActionHandlerBase;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.ApplicationManager;

@@ -1,5 +1,6 @@
 package relativelinesjump.actions.mode;
 
+import com.intellij.codeInsight.CodeInsightSettings;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
 import org.jetbrains.annotations.NotNull;
@@ -11,6 +12,7 @@ public abstract class JumpModeAction extends JRLAction {
 
     @Override
     public final void actionPerformed(@NotNull AnActionEvent event) {
+        CodeInsightSettings.getInstance().AUTO_POPUP_COMPLETION_LOOKUP = false;
         JumpState state = ApplicationManager.getApplication().getService(JumpState.class);
         state.setLinesCount(0);
         state.setMode(getMode());

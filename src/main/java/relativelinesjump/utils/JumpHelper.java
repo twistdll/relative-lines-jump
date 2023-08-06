@@ -1,5 +1,6 @@
 package relativelinesjump.utils;
 
+import com.intellij.codeInsight.CodeInsightSettings;
 import com.intellij.openapi.editor.Caret;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.LogicalPosition;
@@ -33,5 +34,6 @@ public class JumpHelper {
                 .moveToLogicalPosition(new LogicalPosition(newLine, 0));
         jumpState.setLinesCount(0);
         jumpState.setMode(JumpState.JumpMode.None);
+        CodeInsightSettings.getInstance().AUTO_POPUP_COMPLETION_LOOKUP = true;
     }
 }
