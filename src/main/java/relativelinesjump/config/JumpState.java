@@ -51,6 +51,18 @@ public final class JumpState implements PersistentStateComponent<JumpState> {
         }
     }
 
+    public void eraseCharInLinesCount() {
+        String linesCountStr = String.valueOf(getLinesCount());
+
+        if (linesCountStr.length() == 1) {
+            setLinesCount(0);
+            return;
+        }
+
+        linesCountStr = linesCountStr.substring(0, linesCountStr.length() - 1);
+        setLinesCount(Integer.parseInt(linesCountStr));
+    }
+
     public int getTargetLine(int currentLine, int maxLineNumber) {
         int newLine = currentLine + (getDirection() * getLinesCount());
 

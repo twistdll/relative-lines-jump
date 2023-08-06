@@ -36,6 +36,9 @@ public class JumpHelper {
     public static void changeHighlightedLine(Editor editor, JumpState jumpState) {
         removeLineHighlight(editor, jumpState);
 
+        if (jumpState.getMode() == JumpMode.None)
+            return;
+
         TextAttributes attributes = new TextAttributes();
         // TODO: 06.08.2023 get color from settings
         attributes.setBackgroundColor(JBColor.YELLOW);

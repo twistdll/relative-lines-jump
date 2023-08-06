@@ -30,6 +30,7 @@ public class CaretMoveInJumpModeListener implements CaretListener {
 
         if (jumpState.getLinesCount() == 0) {
             jumpState.setMode(JumpMode.None);
+            JumpHelper.changeHighlightedLine(editor, jumpState);
             return;
         }
 

@@ -41,6 +41,9 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <editorTypedHandler implementationClass="relativelinesjump.handlers.DigitsInputEditorHandler"/>
-        <editorActionHandler action="EditorEnter" implementationClass="relativelinesjump.handlers.EnterInJumpModeHandler" order="first"/>
+        <editorActionHandler action="EditorEnter"
+                             implementationClass="relativelinesjump.handlers.EnterInJumpModeHandler" order="first"/>
+        <editorActionHandler action="EditorBackSpace"
+                             implementationClass="relativelinesjump.handlers.BackspaceInJumpModeHandler" order="first"/>
     </extensions>
 </idea-plugin>

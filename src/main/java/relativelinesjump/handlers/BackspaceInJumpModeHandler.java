@@ -5,13 +5,14 @@ import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import relativelinesjump.config.JumpState;
 import relativelinesjump.utils.JumpHelper;
 
-public class EnterInJumpModeHandler extends EditorActionInJumpModeHandler {
-    public EnterInJumpModeHandler(EditorActionHandler originalHandler) {
+public class BackspaceInJumpModeHandler extends EditorActionInJumpModeHandler {
+    public BackspaceInJumpModeHandler(EditorActionHandler originalHandler) {
         super(originalHandler);
     }
 
     @Override
     protected void execute(Editor editor, JumpState jumpState) {
-        JumpHelper.jumpToRelativeLine(editor, jumpState);
+        jumpState.eraseCharInLinesCount();
+        JumpHelper.changeHighlightedLine(editor, jumpState);
     }
 }
