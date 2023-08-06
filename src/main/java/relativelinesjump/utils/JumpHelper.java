@@ -17,7 +17,11 @@ public class JumpHelper {
 
         editor.getCaretModel()
                 .getPrimaryCaret()
-                .moveToLogicalPosition(new LogicalPosition(jumpState.getTargetLine(currentLine), 0));
+                .moveToLogicalPosition(new LogicalPosition(
+                        jumpState.getTargetLine(
+                                currentLine,
+                                editor.getDocument().getLineCount() - 1),
+                        0));
         jumpState.setLinesCount(0);
         jumpState.setMode(JumpMode.None);
 
@@ -37,7 +41,10 @@ public class JumpHelper {
         attributes.setBackgroundColor(JBColor.YELLOW);
 
         RangeHighlighter highlighter = editor.getMarkupModel().addLineHighlighter(
-                jumpState.getTargetLine(JumpHelper.getCurrentLineInEditor(editor)),
+                jumpState.getTargetLine(
+                        JumpHelper.getCurrentLineInEditor(editor),
+                        editor.getDocument().getLineCount() - 1
+                ),
                 HighlighterLayer.ERROR + 1,
                 attributes
         );

@@ -40,21 +40,26 @@ public final class JumpState implements PersistentStateComponent<JumpState> {
         this.linesCount = linesCount;
     }
 
-    public void concatToLinesCount(char character) {
+    public void concatToLinesCount(char character, int maxLineNumber) {
         if (!Character.isDigit(character))
             return;
 
         try {
             setLinesCount(Integer.parseInt(String.valueOf(getLinesCount()) + character));
         } catch (NumberFormatException e) {
-            // TODO: 06.08.2023 jump to last or first line
-            setLinesCount(0);
+            setLinesCount(getDirection() == -1 ? 0 : maxLineNumber);
         }
     }
 
-    public int getTargetLine(int currentLine) {
+    public int getTargetLine(int currentLine, int maxLineNumber) {
         int newLine = currentLine + (getDirection() * getLinesCount());
-        return newLine < 0 ? 0 : newLine;
+
+        if (newLine > maxLineNumber)
+            return maxLineNumber;
+        else if (newLine < 0)
+            return 0;
+        else
+            return newLine;
     }
 
     public int getDirection() {

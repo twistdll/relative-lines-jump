@@ -14,22 +14,19 @@ public class CaretMoveInJumpModeListener implements CaretListener {
 
     @Override
     public void caretPositionChanged(@NotNull CaretEvent event) {
-        if (!isLineChanged(event)) {
+        if (!isLineChanged(event))
             return;
-        }
 
         Editor editor = event.getEditor();
         Project project = event.getEditor().getProject();
 
-        if (project == null) {
+        if (project == null)
             return;
-        }
 
         JumpState jumpState = project.getService(JumpState.class);
 
-        if (jumpState.getMode() == JumpMode.None) {
+        if (jumpState.getMode() == JumpMode.None)
             return;
-        }
 
         if (jumpState.getLinesCount() == 0) {
             jumpState.setMode(JumpMode.None);

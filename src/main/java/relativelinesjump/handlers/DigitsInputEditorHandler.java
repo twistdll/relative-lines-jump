@@ -40,7 +40,7 @@ public class DigitsInputEditorHandler extends TypedActionHandlerBase {
         }
 
         deleteWrittenChar(editor);
-        jumpState.concatToLinesCount(charTyped);
+        jumpState.concatToLinesCount(charTyped, editor.getDocument().getLineCount() - 1);
 
         JumpHelper.changeHighlightedLine(editor, jumpState);
     }
