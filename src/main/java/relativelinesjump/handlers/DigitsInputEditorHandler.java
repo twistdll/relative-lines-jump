@@ -1,15 +1,22 @@
 package relativelinesjump.handlers;
 
-import com.intellij.codeInsight.CodeInsightSettings;
 import com.intellij.codeInsight.template.impl.editorActions.TypedActionHandlerBase;
 import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.TypedActionHandler;
+import com.intellij.openapi.editor.markup.HighlighterLayer;
+import com.intellij.openapi.editor.markup.RangeHighlighter;
+import com.intellij.openapi.editor.markup.TextAttributes;
+import com.intellij.openapi.project.Project;
+import com.intellij.ui.JBColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import relativelinesjump.config.JumpState;
+import relativelinesjump.config.JumpState.JumpMode;
+import relativelinesjump.utils.JumpHelper;
+
+;
 
 public class DigitsInputEditorHandler extends TypedActionHandlerBase {
     private final TypedActionHandler originalHandler;
@@ -26,14 +33,22 @@ public class DigitsInputEditorHandler extends TypedActionHandlerBase {
             originalHandler.execute(editor, charTyped, dataContext);
         }
 
-        JumpState jumpState = ApplicationManager.getApplication().getService(JumpState.class);
+        Project project = editor.getProject();
 
-        if (jumpState.getMode() == JumpState.JumpMode.None) {
+        if (project == null) {
+            return;
+        }
+
+        JumpState jumpState = project.getService(JumpState.class);
+
+        if (jumpState.getMode() == JumpMode.None) {
             return;
         }
 
         deleteWrittenChar(editor);
         jumpState.concatToLinesCount(charTyped);
+
+        JumpHelper.changeHighlightedLine(editor, jumpState);
     }
 
     private static void deleteWrittenChar(Editor editor) {

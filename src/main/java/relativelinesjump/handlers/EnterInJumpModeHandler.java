@@ -5,6 +5,7 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,12 @@ public class EnterInJumpModeHandler implements EnterHandlerDelegate {
                                   @NotNull Ref<Integer> caretAdvance,
                                   @NotNull DataContext dataContext,
                                   @Nullable EditorActionHandler originalHandler) {
-        JumpState jumpState = ApplicationManager.getApplication().getService(JumpState.class);
+        Project project = editor.getProject();
+
+        if (project == null)
+            return Result.Continue;
+
+        JumpState jumpState = project.getService(JumpState.class);
 
         if (jumpState.getMode() == JumpState.JumpMode.None)
             return Result.Continue;

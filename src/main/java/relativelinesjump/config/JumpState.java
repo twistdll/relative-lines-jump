@@ -1,16 +1,22 @@
 package relativelinesjump.config;
 
 import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.components.Service;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.editor.markup.RangeHighlighter;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.apache.commons.lang.NullArgumentException;
 import org.jetbrains.annotations.NotNull;
 
-@State(name = "JumpModeState", storages = {@Storage("jump_mode_state.xml")})
+import java.util.ArrayList;
+import java.util.List;
+
+@Service(Service.Level.PROJECT)
 public final class JumpState implements PersistentStateComponent<JumpState> {
     private JumpMode mode = JumpMode.None;
     private int linesCount = 0;
+    private RangeHighlighter highlighter = null;
 
     public JumpMode getMode() {
         return mode;
@@ -44,6 +50,30 @@ public final class JumpState implements PersistentStateComponent<JumpState> {
             // TODO: 06.08.2023 jump to last or first line
             setLinesCount(0);
         }
+    }
+
+    public int getTargetLine(int currentLine) {
+        int newLine = currentLine + (getDirection() * getLinesCount());
+        return newLine < 0 ? 0 : newLine;
+    }
+
+    public int getDirection() {
+        switch (getMode()) {
+            case Up:
+                return -1;
+            case Down:
+                return 1;
+            default:
+                throw new RuntimeException("Unexpected jump mode");
+        }
+    }
+
+    public RangeHighlighter getHighlighter() {
+        return highlighter;
+    }
+
+    public void setHighlighter(RangeHighlighter highlighter) {
+        this.highlighter = highlighter;
     }
 
     @Override
