@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.markup.RangeHighlighter;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.ui.JBColor;
 import relativelinesjump.config.JumpState;
+import relativelinesjump.config.JumpState.JumpMode;
 
 public class JumpHelper {
     public static void jumpToRelativeLine(Editor editor, JumpState jumpState) {
@@ -18,7 +19,7 @@ public class JumpHelper {
                 .getPrimaryCaret()
                 .moveToLogicalPosition(new LogicalPosition(jumpState.getTargetLine(currentLine), 0));
         jumpState.setLinesCount(0);
-        jumpState.setMode(JumpState.JumpMode.None);
+        jumpState.setMode(JumpMode.None);
 
         CodeInsightSettings.getInstance().AUTO_POPUP_COMPLETION_LOOKUP = true;
         removeLineHighlight(editor, jumpState);

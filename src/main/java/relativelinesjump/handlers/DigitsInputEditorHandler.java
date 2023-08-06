@@ -5,18 +5,12 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.TypedActionHandler;
-import com.intellij.openapi.editor.markup.HighlighterLayer;
-import com.intellij.openapi.editor.markup.RangeHighlighter;
-import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.project.Project;
-import com.intellij.ui.JBColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import relativelinesjump.config.JumpState;
 import relativelinesjump.config.JumpState.JumpMode;
 import relativelinesjump.utils.JumpHelper;
-
-;
 
 public class DigitsInputEditorHandler extends TypedActionHandlerBase {
     private final TypedActionHandler originalHandler;

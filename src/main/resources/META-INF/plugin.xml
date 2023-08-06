@@ -23,6 +23,13 @@
                     keymap="$default"
                     first-keystroke="alt shift DOWN"/>
         </action>
+        <action id="relativelinesjump.actions.mode.ExitJumpModeAction"
+                class="relativelinesjump.actions.mode.ExitJumpModeAction"
+                text="Exit Jump Mode">
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="ESCAPE"/>
+        </action>
         <action id="relativelinesjump.actions.jump.ExecuteJumpAction"
                 class="relativelinesjump.actions.jump.ExecuteJumpAction"
                 text="Jump To Relative Line">
