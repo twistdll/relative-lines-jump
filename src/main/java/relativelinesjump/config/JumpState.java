@@ -1,19 +1,11 @@
 package relativelinesjump.config;
 
-import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.Service;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.editor.markup.RangeHighlighter;
-import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.apache.commons.lang.NullArgumentException;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service(Service.Level.PROJECT)
-public final class JumpState implements PersistentStateComponent<JumpState> {
+public final class JumpState {
     private JumpMode mode = JumpMode.None;
     private int linesCount = 0;
     private RangeHighlighter highlighter = null;
@@ -75,14 +67,11 @@ public final class JumpState implements PersistentStateComponent<JumpState> {
     }
 
     public int getDirection() {
-        switch (getMode()) {
-            case Up:
-                return -1;
-            case Down:
-                return 1;
-            default:
-                throw new RuntimeException("Unexpected jump mode");
-        }
+        return switch (getMode()) {
+            case Up -> -1;
+            case Down -> 1;
+            default -> throw new RuntimeException("Unexpected jump mode");
+        };
     }
 
     public RangeHighlighter getHighlighter() {
@@ -91,16 +80,6 @@ public final class JumpState implements PersistentStateComponent<JumpState> {
 
     public void setHighlighter(RangeHighlighter highlighter) {
         this.highlighter = highlighter;
-    }
-
-    @Override
-    public JumpState getState() {
-        return this;
-    }
-
-    @Override
-    public void loadState(@NotNull JumpState state) {
-        XmlSerializerUtil.copyBean(state, this);
     }
 
     public static enum JumpMode {

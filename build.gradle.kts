@@ -1,28 +1,26 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.8.21"
     id("org.jetbrains.intellij") version "1.13.3"
 }
 
 group = "twistdll.relative-lines"
-version = "1.1.1"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
 }
 
 intellij {
-    version.set("2022.2.5")
-    type.set("IC") // Target IDE Platform
+    version.set("2022.2")
+    type.set("IC")
     
-    plugins.set(listOf())
+    plugins.set(listOf("youngstead.relative-line-numbers:1.1.1"))
 }
 
 tasks {
-    // Set the JVM compatibility versions
     withType<JavaCompile> {
-        sourceCompatibility = "11"
-        targetCompatibility = "11"
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
     }
 
     runIde {

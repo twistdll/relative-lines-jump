@@ -2,11 +2,13 @@
     <id>twistdll.relative-lines-jump</id>
     <name>Relative Lines Jump</name>
     <vendor email="n.napreenkov@mail.ru">twistdll</vendor>
+    <idea-version since-build="222"/>
     <description>
         Allows you to jump on relative to cursor lines
     </description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>youngstead.relative-line-numbers</depends>
 
     <actions>
         <action id="relativelinesjump.actions.mode.JumpUpModeAction"
@@ -35,7 +37,8 @@
                 text="Jump To Relative Line">
             <keyboard-shortcut
                     keymap="$default"
-                    first-keystroke="ENTER"/>
+                    first-keystroke="ctrl shift w"
+                    remove="true"/>
         </action>
     </actions>
 
