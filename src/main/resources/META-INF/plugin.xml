@@ -4,7 +4,11 @@
     <vendor email="n.napreenkov@mail.ru">twistdll</vendor>
     <idea-version since-build="222"/>
     <description>
-        Allows you to jump on relative to cursor lines
+        <![CDATA[
+            <p>Allows you to jump on relative to cursor lines</p>
+            <p>Press (Shift+Alt+Down/Up by default) and type relative line number. Then, press Enter. Voilà!</p>
+            <p>Comes with the @youngstead plugin for displaying relative lines.</p>
+        ]]>
     </description>
 
     <depends>com.intellij.modules.platform</depends>

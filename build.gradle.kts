@@ -13,7 +13,7 @@ repositories {
 intellij {
     version.set("2022.2")
     type.set("IC")
-    
+
     plugins.set(listOf("youngstead.relative-line-numbers:1.1.1"))
 }
 
@@ -27,18 +27,13 @@ tasks {
         autoReloadPlugins.set(true)
     }
 
-    patchPluginXml {
-        sinceBuild.set("222")
-        untilBuild.set("232.*")
-    }
-
     signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+        certificateChain.set(System.getenv("aboba"))
+        privateKey.set(System.getenv("aboba"))
+        password.set(System.getenv("aboba"))
     }
 
     publishPlugin {
-        token.set(System.getenv("PUBLISH_TOKEN"))
+        token.set(System.getenv("aboba"))
     }
 }
