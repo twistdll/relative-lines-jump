@@ -2,7 +2,6 @@
     <id>twistdll.relative-lines-jump</id>
     <name>Relative Lines Jump</name>
     <vendor email="n.napreenkov@mail.ru">twistdll</vendor>
-    <idea-version since-build="222"/>
     <description>
         <![CDATA[
             <p>Allows you to jump on relative to cursor lines</p>
@@ -11,6 +10,7 @@
         ]]>
     </description>
 
+    <idea-version since-build="222"/>
     <depends>com.intellij.modules.platform</depends>
     <depends>youngstead.relative-line-numbers</depends>
 
