@@ -1,48 +1,40 @@
 package relativelinesjump.handlers;
 
-import com.intellij.codeInsight.template.impl.editorActions.TypedActionHandlerBase;
-import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.codeInsight.editorActions.TypedHandlerDelegate;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.actionSystem.TypedActionHandler;
+import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.project.Project;
+import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import relativelinesjump.config.JumpState;
 import relativelinesjump.config.JumpState.JumpMode;
 import relativelinesjump.utils.JumpHelper;
 
-public class DigitsInputEditorHandler extends TypedActionHandlerBase {
-    private final TypedActionHandler originalHandler;
+public class DigitsInputEditorHandler extends TypedHandlerDelegate {
 
-    public DigitsInputEditorHandler(@Nullable TypedActionHandler originalHandler) {
-        super(originalHandler);
+    @Override
+    public @NotNull Result beforeCharTyped(char c, @NotNull Project project, @NotNull Editor editor, @NotNull PsiFile file, @NotNull FileType fileType) {
+        JumpState jumpState = project.getService(JumpState.class);
 
-        this.originalHandler = originalHandler;
+        if (jumpState.getMode() == JumpMode.None)
+            return Result.DEFAULT;
+
+        jumpState.concatToLinesCount(c, editor.getDocument().getLineCount() - 1);
+
+        JumpHelper.changeHighlightedLine(editor, jumpState);
+        return Result.CONTINUE;
     }
 
     @Override
-    public void execute(@NotNull Editor editor, char charTyped, @NotNull DataContext dataContext) {
-        if (originalHandler != null) {
-            originalHandler.execute(editor, charTyped, dataContext);
-        }
-
-        Project project = editor.getProject();
-
-        if (project == null) {
-            return;
-        }
-
+    public @NotNull Result charTyped(char c, @NotNull Project project, @NotNull Editor editor, @NotNull PsiFile file) {
         JumpState jumpState = project.getService(JumpState.class);
 
-        if (jumpState.getMode() == JumpMode.None) {
-            return;
-        }
+        if (jumpState.getMode() == JumpMode.None)
+            return Result.DEFAULT;
 
         deleteWrittenChar(editor);
-        jumpState.concatToLinesCount(charTyped, editor.getDocument().getLineCount() - 1);
-
-        JumpHelper.changeHighlightedLine(editor, jumpState);
+        return Result.STOP;
     }
 
     private static void deleteWrittenChar(Editor editor) {

@@ -47,7 +47,7 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <editorTypedHandler implementationClass="relativelinesjump.handlers.DigitsInputEditorHandler"/>
+        <typedHandler implementation="relativelinesjump.handlers.DigitsInputEditorHandler" order="first"/>
         <editorActionHandler action="EditorEnter"
                              implementationClass="relativelinesjump.handlers.EnterInJumpModeHandler" order="first"/>
         <editorActionHandler action="EditorBackSpace"

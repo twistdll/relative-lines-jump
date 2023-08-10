@@ -11,7 +11,7 @@ repositories {
 }
 
 intellij {
-    version.set("2022.2")
+    version.set("2022.3")
     type.set("IC")
 
     plugins.set(listOf("youngstead.relative-line-numbers:1.1.1"))
