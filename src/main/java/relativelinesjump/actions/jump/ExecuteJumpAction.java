@@ -27,7 +27,7 @@ public class ExecuteJumpAction extends JRLAction {
         }
 
         if (jumpState.getLinesCount() == 0) {
-            jumpState.setMode(JumpMode.None);
+            jumpState.disableJumpMode();
             return;
         }
 

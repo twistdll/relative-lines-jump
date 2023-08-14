@@ -1,5 +1,6 @@
 package relativelinesjump.config;
 
+import com.intellij.codeInsight.CodeInsightSettings;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.editor.markup.RangeHighlighter;
 import org.apache.commons.lang.NullArgumentException;
@@ -30,6 +31,11 @@ public final class JumpState {
             throw new RuntimeException("Lines count must be non negative");
 
         this.linesCount = linesCount;
+    }
+
+    public void disableJumpMode() {
+        setMode(JumpMode.None);
+        CodeInsightSettings.getInstance().AUTO_POPUP_COMPLETION_LOOKUP = true;
     }
 
     public void concatToLinesCount(char character, int maxLineNumber) {
