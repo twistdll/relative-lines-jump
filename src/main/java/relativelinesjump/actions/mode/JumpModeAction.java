@@ -27,7 +27,12 @@ public abstract class JumpModeAction extends JRLAction {
 
         JumpState state = project.getService(JumpState.class);
         state.setLinesCount(0);
-        state.setMode(getMode());
+        JumpMode mode = getMode();
+
+        if(mode == JumpMode.None)
+            state.disableJumpMode();
+        else
+            state.setMode(mode);
 
         Editor editor = event.getData(CommonDataKeys.EDITOR);
 
